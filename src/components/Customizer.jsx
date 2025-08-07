@@ -8,6 +8,9 @@ function Customizer() {
   const [initialsColor, setInitialsColor] = useState('#000000');
   const [logoURL, setLogoURL] = useState(null);
 
+  const [logoPosition, setLogoPosition] = useState(null);
+  const [initialsPosition, setInitialsPosition] = useState(null);
+
   // Load SVG dynamically
   useEffect(() => {
     fetch('/svg/image.svg')
@@ -16,15 +19,38 @@ function Customizer() {
         const parser = new DOMParser();
         const doc = parser.parseFromString(xml, 'image/svg+xml');
 
+        // ViewBox
         setViewBox(doc.documentElement.getAttribute('viewBox') || '0 0 500 500');
 
+        // Paths with IDs
         const pathElements = doc.querySelectorAll('path[id]');
         const newPaths = Array.from(pathElements).map(el => ({
           id: el.id,
           d: el.getAttribute('d'),
         }));
-
         setPaths(newPaths);
+
+        // Initials (rect)
+        const initialsEl = doc.getElementById('initials');
+        if (initialsEl) {
+          setInitialsPosition({
+            x: parseFloat(initialsEl.getAttribute('x')),
+            y: parseFloat(initialsEl.getAttribute('y')),
+            width: parseFloat(initialsEl.getAttribute('width')),
+            height: parseFloat(initialsEl.getAttribute('height')),
+          });
+        }
+
+        // Logo (ellipse)
+        const logoEl = doc.getElementById('logo');
+        if (logoEl) {
+          setLogoPosition({
+            cx: parseFloat(logoEl.getAttribute('cx')),
+            cy: parseFloat(logoEl.getAttribute('cy')),
+            rx: parseFloat(logoEl.getAttribute('rx')),
+            ry: parseFloat(logoEl.getAttribute('ry')),
+          });
+        }
       });
   }, []);
 
@@ -46,6 +72,40 @@ function Customizer() {
     if (file) {
       setLogoURL(URL.createObjectURL(file));
     }
+  };
+
+  // Helpers for positioning logo & initials
+  const getPositionStyle = (position) => {
+    if (!position) return {};
+    const { x, y, width, height, cx, cy, rx, ry } = position;
+
+    if ('x' in position && 'y' in position) {
+      // Rectangle (initials)
+      return {
+        position: 'absolute',
+        top: `${(y / 500) * 100}%`,
+        left: `${(x / 500) * 100}%`,
+        width: `${(width / 500) * 100}%`,
+        height: `${(height / 500) * 100}%`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transform: 'translate(0, 0)',
+      };
+    } else if ('cx' in position && 'cy' in position) {
+      // Ellipse (logo)
+      return {
+        position: 'absolute',
+        top: `${((cy - ry) / 500) * 100}%`,
+        left: `${((cx - rx) / 500) * 100}%`,
+        width: `${(rx * 2 / 500) * 100}%`,
+        height: `${(ry * 2 / 500) * 100}%`,
+        objectFit: 'contain',
+        transform: 'translate(0, 0)',
+      };
+    }
+
+    return {};
   };
 
   return (
@@ -97,36 +157,29 @@ function Customizer() {
             }}
           />
 
-          {/* Logo */}
-          {logoURL && (
+          {/* Logo Overlay */}
+          {logoURL && logoPosition && (
             <img
               src={logoURL}
               alt="Logo"
               style={{
-                position: 'absolute',
-                top: '24%',
-                left: '34%',
-                width: '8%',
-                height: 'auto',
+                ...getPositionStyle(logoPosition),
                 zIndex: 3,
                 pointerEvents: 'none',
               }}
             />
           )}
 
-          {/* Initials */}
-          {initials && (
+          {/* Initials Overlay */}
+          {initials && initialsPosition && (
             <div
-              id="initials"
               style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
+                ...getPositionStyle(initialsPosition),
                 color: initialsColor,
-                fontSize: '24px',
+                fontSize: '1.2em',
                 fontWeight: 'bold',
                 zIndex: 4,
+                textAlign: 'center',
               }}
             >
               {initials}

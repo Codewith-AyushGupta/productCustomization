@@ -1,10 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
-import Customizer from './components/Customizer';
+import MugCustomizer from './components/MugCustomizer';
 function App() {
   return (
     <div className="App">
-     <Customizer />
+     <MugCustomizer />
     </div>
   );
 }

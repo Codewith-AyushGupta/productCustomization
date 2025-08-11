@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function Customizer() {
+function AprealCustomizer() {
   const [paths, setPaths] = useState([]);
   const [viewBox, setViewBox] = useState('0 0 500 500');
   const [colors, setColors] = useState({});
@@ -22,10 +22,12 @@ function Customizer() {
         // ViewBox
         setViewBox(doc.documentElement.getAttribute('viewBox') || '0 0 500 500');
 
-        // Paths with IDs
+        // Paths with IDs and labels
         const pathElements = doc.querySelectorAll('path[id]');
+        
         const newPaths = Array.from(pathElements).map(el => ({
           id: el.id,
+          label: el.getAttribute('label') || el.id, // ✅ Fixed here
           d: el.getAttribute('d'),
         }));
         setPaths(newPaths);
@@ -194,10 +196,10 @@ function Customizer() {
 
         <section style={{ marginBottom: '30px' }}>
           <h4>Customize Colors</h4>
-          {paths.map(({ id }) => (
+          {paths.map(({ id, label }) => (
             <div key={id} style={{ margin: '10px 0' }}>
               <label>
-                <strong>{id.toUpperCase()}</strong> Color:&nbsp;
+                <strong>{label}</strong> Color:&nbsp;
                 <input
                   type="color"
                   value={colors[id] || '#ffffff'}
@@ -238,4 +240,4 @@ function Customizer() {
   );
 }
 
-export default Customizer;
+export default AprealCustomizer;

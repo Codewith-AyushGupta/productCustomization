@@ -32,8 +32,8 @@ function AprealCustomizer() {
       height: logoBounds.h,
       fill: "rgba(0, 255, 0, 0.1)",
       stroke: "green",
-      selectable: false,
-      evented: false,
+      selectable: true,
+      evented: true,
     });
     const initialsBox = new Rect({
       left: initialsBounds.x,
@@ -42,8 +42,8 @@ function AprealCustomizer() {
       height: initialsBounds.h,
       fill: "rgba(0, 0, 255, 0.1)",
       stroke: "blue",
-      selectable: false,
-      evented: false,
+      selectable: true,
+      evented: true,
     });
 
     canvas.add(logoBox);
@@ -58,7 +58,7 @@ function AprealCustomizer() {
   useEffect(() => {
     if (!fabricCanvas.current) return;
 
-    fetch("/svg/image2.svg")
+    fetch("/svg/ball.svg")
       .then((res) => res.text())
       .then((xml) => {
         const parser = new DOMParser();
@@ -78,8 +78,8 @@ function AprealCustomizer() {
             fill: colors[pathObj.id] || "#ffffff",
             stroke: "black",
             strokeWidth: 0.5,
-            selectable: false,
-            evented: false,
+            selectable: true,
+            evented: true,
           });
           path.customId = pathObj.id;
           fabricCanvas.current.add(path);
@@ -88,14 +88,15 @@ function AprealCustomizer() {
         fabricCanvas.current.renderAll();
 
         // Load PNG image on top of SVG
-        Image.fromURL("/png/image.png").then((img) => {
+        Image.fromURL("/png/ball.png").then((img) => {
           img.set({
-            left: 20,
-            top: -10,
+              left: 65,
+            top: 0,
             width: 400,
-            selectable: false,
-            evented: false,
+            selectable: true,
+            evented: true,
             opacity: 0.7,
+            globalCompositeOperation: "multiply"
           });
           fabricCanvas.current.add(img);
           fabricCanvas.current.renderAll();
@@ -268,3 +269,6 @@ function AprealCustomizer() {
 }
 
 export default AprealCustomizer;
+
+
+

@@ -1,37 +1,34 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import AprealCustomizer from "./components/aprealCustomizer";
 import Customizer from "./components/customizer";
 import NonAprealCustomizer from "./components/nonAprealCustomizer";
 import CustomiseTab from "./components/CustomiseTab"; 
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
+import ProductJsonCreation from "./components/ProductJsonCreation";
 
 function Root() {
+  const location = useLocation(); // ✅ from react-router-dom
+
   return (
     <>
-      <CustomiseTab />
+      {location.pathname !== "/admin" && <CustomiseTab />}
       <Routes>
         <Route path="/apreal" element={<AprealCustomizer />} />
         <Route path="/non-apreal" element={<NonAprealCustomizer />} />
-        {/* Optionally redirect default path */}
+        <Route path="/admin" element={<ProductJsonCreation />} />
         <Route path="*" element={<AprealCustomizer />} />
       </Routes>
     </>
   );
 }
 
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <Routes>
-        <Route path="/apreal" element={<AprealCustomizer />} />
-        <Route path="/non-apreal" element={<NonAprealCustomizer />} />
-        <Route path="/customizer" element={<Customizer />} />
-      </Routes> */}
       <Root />
-
     </BrowserRouter>
   </React.StrictMode>
 );

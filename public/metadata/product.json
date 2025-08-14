@@ -1,70 +1,70 @@
 [
-    {
-        "svgPath": "svg/singleColorTshirt.svg",
-        "productImage": "png/singleColorTshirt.png",
-        "productName": "Sports Jersey",
-        "productDescription": "Customize your own sports jersey with initials and color options.",
-        "productPrice": 99.99,
-        "productSlug": "sports-jersey",
-        "productType": "apparel",
-        "variantOptions": [
-            {
-                "name": "Size",
-                "values": [
-                    {
-                        "name": "Small",
-                        "value": "S"
-                    },
-                    {
-                        "name": "Medium",
-                        "value": "M"
-                    },
-                    {
-                        "name": "Large",
-                        "value": "L"
-                    },
-                    {
-                        "name": "X-Large",
-                        "value": "XL"
-                    }
-                ]
-            },
-            {
-                "name": "Color",
-                "values": [
-                    {
-                        "name": "Red",
-                        "value": "#FF0000"
-                    },
-                    {
-                        "name": "Green",
-                        "value": "#008000"
-                    },
-                    {
-                        "name": "Blue",
-                        "value": "#0000FF"
-                    },
-                    {
-                        "name": "Yellow",
-                        "value": "#FFFF00"
-                    },
-                    {
-                        "name": "Black",
-                        "value": "#333232"
-                    }
-                ]
-            }
-        ],
-        "customizationMatrix": [
-            {
-                "label": "Initials",
-                "type": "text",
-                "maxCharacter": 4,
-                "svgElementId": "initials",
-                "placeHolder": "Enter Initials",
-                "isRequired": true,
-                "svgElementIds": "initials"
-            }
+  {
+    "svgPath": "svg/singleColorTshirt.svg",
+    "productImage": "png/singleColorTshirt.png",
+    "productName": "Sports Jersey",
+    "productDescription": "Customize your own sports jersey with initials and color options.",
+    "productPrice": 99.99,
+    "productSlug": "sports-jersey",
+    "productType": "apparel",
+    "variantOptions": [
+      {
+        "name": "Size",
+        "values": [
+          {
+            "name": "Small",
+            "value": "S"
+          },
+          {
+            "name": "Medium",
+            "value": "M"
+          },
+          {
+            "name": "Large",
+            "value": "L"
+          },
+          {
+            "name": "X-Large",
+            "value": "XL"
+          }
         ]
-    }
+      },
+      {
+        "name": "Color",
+        "values": [
+          {
+            "name": "Red",
+            "value": "#FF0000"
+          },
+          {
+            "name": "Green",
+            "value": "#008000"
+          },
+          {
+            "name": "Blue",
+            "value": "#0000FF"
+          },
+          {
+            "name": "Yellow",
+            "value": "#FFFF00"
+          },
+          {
+            "name": "Black",
+            "value": "#333232"
+          }
+        ]
+      }
+    ],
+    "customizationMatrix": [
+      {
+        "label": "Initials",
+        "type": "text",
+        "maxCharacter": 4,
+        "svgElementId": "initials",
+        "placeHolder": "Enter Initials",
+        "isRequired": true,
+        "svgElementIds": "initials"
+      }
+    ]
+  }
 ]

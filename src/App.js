@@ -1,12 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
-import MugCustomizer from './components/MugCustomizer';
-function App() {
-  return (
-    <div className="App">
-     <MugCustomizer />
-    </div>
-  );
-}
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
 
-export default App;
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
